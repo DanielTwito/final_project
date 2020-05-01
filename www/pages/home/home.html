@@ -1,0 +1,46 @@
+
+<div ng-controller="homeCont" ng-init="home_init()">
+
+<div class="container"  ng-show="!logged_flag" style="margin-top: 50px; position: center" >
+    <div class="row align-items-center">
+        <div class="col-12 hero-text-image">
+            <div class="row">
+                <div class="col-lg-7 text-center text-lg-left">
+                    <h1 >Welcome Guest!<br>106 Report Center</h1>
+                    <p class="mb-5" >To make a report, please sign in or register</p>
+                    <ul style=" list-style-type: none; display: flex; position: center">
+                        <li ><p style="width : 100px"><a href="#!login" class="btn btn-primary btn-sm">Login</a></p></li>
+                        <li style="padding-left: 55px"><p style="width: 100px" ><a href="#!register" class="btn btn-primary btn-sm">Register</a></p></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="container"  ng-show="logged_flag" style="margin-top: 50px; position: center"  >
+    <div class="row align-items-center">
+        <div class="col-12 hero-text-image">
+            <div class="row">
+                <div class="col-lg-7 text-center text-lg-left">
+                    <h1 >Welcome {{logUser}}</h1>
+                    <p class="mb-5" >Take a photo from your Camera or from your gallery </p>
+                    <ul style=" list-style-type: none; display: flex; position: center">
+                        <li  ng-click="choose_source()" ><p style="width : 100px; padding-left: 90px"><a  class="btn btn-primary btn-sm">Take a Photo</a></p></li>
+<!--                        <li  ng-click="cameraTakePicture_gallery()" ><p style="width : 100px; padding-left: 90px"><a  class="btn btn-primary btn-sm">From gallery</a></p></li>-->
+                    </ul>
+<!--                    <button ng-click="choose_source()">Location</button>-->
+                        <p style="color: black" id="a"></p>
+                        <p style="color: black" id="b"></p>
+                    <img id = "myImage">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+</div>
