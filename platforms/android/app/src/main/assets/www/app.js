@@ -28,6 +28,10 @@ app.config(function($routeProvider)  {
             // this is a template
             templateUrl: 'pages/home/home.html'
         })
+        .when('/add_report', {
+            // this is a template
+            templateUrl: 'pages/add_report/add_report.html'
+        })
 
         .when('/register', {
             // this is a template
