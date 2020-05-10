@@ -97,6 +97,13 @@ figure figcaption {
   z-index: 11;
 }
 
+.my_checkbox{
+  background: white;
+  border: 2px solid black;
+  color:black !important;
+  font-weight: bold;
+}
+
 .back-to-top i {
   color: #fff;
   font-size: 24px;
