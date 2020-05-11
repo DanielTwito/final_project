@@ -8,7 +8,6 @@ app.controller('homeCont', function($rootScope,$scope,$http,$location) {
        // / $scope.show_form = false;
         $rootScope.logUser = localStorage.getItem("logged_user");
         $rootScope.logged_flag=true;
-
         $location.path('/home');
 
     };
@@ -60,12 +59,10 @@ app.controller('homeCont', function($rootScope,$scope,$http,$location) {
             $scope.getPosition();
             // $rootScope.currentReport.show  =  true;
             setTimeout(()=>{
-                $rootScope.currentReport.lan  =  $scope.a ;
-                $rootScope.currentReport.lon  =  $scope.b ;
                 document.getElementById("addform").style.display='block';
                 // alert(JSON.stringify($rootScope.currentReport));
 
-            },3000);
+            },1000);
         }
 
         function onFail(message) {
@@ -96,11 +93,8 @@ app.controller('homeCont', function($rootScope,$scope,$http,$location) {
             $scope.getPosition();
 
             setTimeout(()=>{
-                $rootScope.currentReport.lan  =  $scope.a ;
-                $rootScope.currentReport.lon  =  $scope.b ;
                 document.getElementById("addform").style.display='block';
-                // alert(JSON.stringify($rootScope.currentReport));
-            },3000  );
+            },1000  );
 
         }
 
@@ -137,16 +131,8 @@ app.controller('homeCont', function($rootScope,$scope,$http,$location) {
         });
 
         function onSuccess(position) {
-            $scope.a = position.coords.latitude+"";
-            $scope.b = position.coords.longitude+"";
-            // alert('Latitude: '         + position.coords.latitude          + '\n' +
-            //     'Longitude: '         + position.coords.longitude         + '\n' +
-            //     'Altitude: '          + position.coords.altitude          + '\n' +
-            //     'Accuracy: '          + position.coords.accuracy          + '\n' +
-            //     'Altitude Accuracy: ' + position.coords.altitudeAccuracy  + '\n' +
-            //     'Heading: '           + position.coords.heading           + '\n' +
-            //     'Speed: '             + position.coords.speed             + '\n' +
-            //     'Timestamp: '         + position.timestamp                + '\n');
+            $rootScope.currentReport.lan  =  position.coords.latitude+"";
+            $rootScope.currentReport.lon  =  position.coords.longitude+"";
         }
 
         function onError(error) {
@@ -162,8 +148,9 @@ app.controller('homeCont', function($rootScope,$scope,$http,$location) {
     };
 
     $scope.choose_source=function(){
+        $scope.text_show = false;
         navigator.notification.confirm(
-            'choose from gallery or camera',  // message
+            'Choose from gallery or camera',  // message
             $scope.one,        // callback
             'Source Select',            // title
             ['Camera','Gallery']    ,
@@ -188,19 +175,28 @@ app.controller('homeCont', function($rootScope,$scope,$http,$location) {
         var ft = new FileTransfer();
         // ft.upload(imageData, url, (res)=> alert(JSON.stringify(res.response)), (err)=>{alert(JSON.stringify(err))}, options);
         var params = {};
-        // params.latitude = $scope.lan;
-        params.latitude = 10;
-        // params.longitude = $scope.lon;
-        params.longitude = 55;
+        params.latitude = $rootScope.currentReport.lan;
+        // params.latitude = 10;
+        params.longitude =  $rootScope.currentReport.lon;
+        // params.longitude = 55;
         params.date = Date.now();
-
+        params.class = $rootScope.currentReport.choosen_class;
+        params.description = $scope.p_description;
+        // alert(JSON.stringify(params));
         options.params = params;
         options.chunkedMode = false;
 
         // url=encodeURI(SERVER_URL +"/addReport");
         ft.upload( imageData, url, (res)=>{
-            alert(JSON.stringify(res))
-        }, (err)=>{alert(JSON.stringify(err))}, options);
+            navigator.notification.confirm(
+                'Your report has been saved',  // message
+                undefined,        // callback
+                'Report added successfully',            // title
+                ['OK'],
+                undefined// buttonName
+            );
+            $location.path('/home');
+            }, (err)=>{alert(JSON.stringify(err))}, options);
         // alert($scope.photo_description);
 
 
@@ -217,7 +213,7 @@ app.controller('homeCont', function($rootScope,$scope,$http,$location) {
         document.getElementById("class3").value= x[2]+"";
     };
     $scope.click1 = function(){
-        $rootScope.currentReport.choosen_class = $scope.class1;
+        $rootScope.currentReport.choosen_class = document.getElementById("class1").value;
         document.getElementById("class2").style.background = "white";
         document.getElementById("class1").style.background = "rgba(0,0,0,0.2)";
         document.getElementById("class3").style.background = "white";
@@ -225,7 +221,7 @@ app.controller('homeCont', function($rootScope,$scope,$http,$location) {
 
 
     $scope.click2=function(){
-        $rootScope.currentReport.choosen_class = $scope.class2;
+        $rootScope.currentReport.choosen_class = document.getElementById("class2").value;
         document.getElementById("class1").style.background = "white";
         document.getElementById("class3").style.background = "white";
         document.getElementById("class2").style.background = "rgba(0,0,0,0.2)";
@@ -233,7 +229,7 @@ app.controller('homeCont', function($rootScope,$scope,$http,$location) {
 
 
     $scope.click3=function(){
-        $rootScope.currentReport.choosen_class = $scope.class3;
+        $rootScope.currentReport.choosen_class = document.getElementById("class3").value;
         document.getElementById("class1").style.background = "white";
         document.getElementById("class2").style.background = "white";
         document.getElementById("class3").style.background = "rgba(0,0,0,0.2)";
