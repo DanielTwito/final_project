@@ -98,9 +98,9 @@ app.controller('regCont', function($rootScope,$scope,$http,$location) {
 
         $http.post(req.url, JSON.stringify(req.data)).then((res) => {
                navigator.notification.confirm(
-                   'Your detail has been save in our system',  // message
+                   'Your details have been saved in our system',  // message
                    undefined,        // callback
-                   'Registration Success!',            // title
+                   'Registration completed successfully',            // title
                    ['Continue to login page'],
                    undefined// buttonName
                );

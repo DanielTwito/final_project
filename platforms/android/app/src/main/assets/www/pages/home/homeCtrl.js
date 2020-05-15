@@ -175,11 +175,13 @@ app.controller('homeCont', function($rootScope,$scope,$http,$location) {
         var ft = new FileTransfer();
         // ft.upload(imageData, url, (res)=> alert(JSON.stringify(res.response)), (err)=>{alert(JSON.stringify(err))}, options);
         var params = {};
+        var date = new Date();
+        var curr_date = date.getUTCDate()+"/"+(date.getUTCMonth()+1)+"/"+date.getUTCFullYear();
         params.latitude = $rootScope.currentReport.lan;
         // params.latitude = 10;
         params.longitude =  $rootScope.currentReport.lon;
         // params.longitude = 55;
-        params.date = Date.now();
+        params.date = curr_date;
         params.class = $rootScope.currentReport.choosen_class;
         params.description = $scope.p_description;
         // alert(JSON.stringify(params));

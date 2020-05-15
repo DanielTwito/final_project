@@ -11,20 +11,11 @@ app.controller('reportCtrl', function($rootScope,$scope,$http,$location) {
     // alert(JSON.stringify(req));
     $http(req).then((res) => {
         $scope.photo_list = res.data;
-        if($scope.photo_list[0] === undefined){
-            $scope.show_div = false;
-        }else{
-            $scope.show_div = true;
-
-        }
+        $scope.show_div = $scope.photo_list[0] !== undefined;
 
     });
 
-    $scope.getsrc= function (path) {
-
-        return SERVER_URL+"/getReportImage?imagePath="+path;
-
-    }
+    $scope.getsrc= function (path) {return SERVER_URL+"/getReportImage?imagePath="+path;}
 
 });
 
